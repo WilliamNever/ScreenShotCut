@@ -68,5 +68,32 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                 }
             }
         }
+
+        private void mnChildSelectionAction_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            //MessageBox.Show(string.Format("{0}\n{1}",e.ClickedItem.Name
+            //    ,((ContextMenuStrip)e.ClickedItem.Owner).SourceControl.Name
+            //    ));
+            switch (e.ClickedItem.Name)
+            {
+                case "tsmiSelect":
+                    var ctrl = ((ContextMenuStrip)e.ClickedItem.Owner).SourceControl as PictureBox;
+                    ctrl.BorderStyle = BorderStyle.FixedSingle;
+                    
+                    break;
+                case "tsmiToTop":
+                    break;
+                case "tsmiToBottom":
+                    break;
+                case "tsmiUp":
+                    break;
+                case "tsmiDown":
+                    break;
+                case "tsmiDelete":
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
