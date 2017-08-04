@@ -35,6 +35,7 @@
             this.tsmiToBottom = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUp = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDown = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.mnChildSelectionAction.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,9 +46,11 @@
             this.tsmiToTop,
             this.tsmiToBottom,
             this.tsmiUp,
-            this.tsmiDown});
+            this.tsmiDown,
+            this.tsmiDelete});
             this.mnChildSelectionAction.Name = "mnChildSelectionAction";
-            this.mnChildSelectionAction.Size = new System.Drawing.Size(153, 136);
+            this.mnChildSelectionAction.Size = new System.Drawing.Size(153, 158);
+            this.mnChildSelectionAction.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnChildSelectionAction_ItemClicked);
             // 
             // tsmiSelect
             // 
@@ -79,6 +82,12 @@
             this.tsmiDown.Size = new System.Drawing.Size(152, 22);
             this.tsmiDown.Text = "Down";
             // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelete.Text = "Delete";
+            // 
             // UCtrlBackGround
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,5 +109,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiToBottom;
         private System.Windows.Forms.ToolStripMenuItem tsmiUp;
         private System.Windows.Forms.ToolStripMenuItem tsmiDown;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
     }
 }

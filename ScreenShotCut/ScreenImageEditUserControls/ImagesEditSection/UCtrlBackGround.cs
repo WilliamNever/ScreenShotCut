@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ScreenShotCutLib.ControlExtendInfors;
+using ScreenImageEditUserControls.FunctionsPart;
 
 namespace ScreenImageEditUserControls.ImagesEditSection
 {
@@ -29,7 +30,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         public void AddBottomImage(Image img)
         {
             var guid = Guid.NewGuid();
-            var picBottom = new System.Windows.Forms.PictureBox();
+            var picBottom = new PictureBoxEx();
             picBottom.Name = guid.ToString();
             picBottom.SizeMode = PictureBoxSizeMode.Zoom;
             picBottom.Location = new Point(0, 0);
@@ -43,7 +44,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         public void AddTopImage(Image img)
         {
             var guid = Guid.NewGuid();
-            var pidTop = new System.Windows.Forms.PictureBox();
+            var pidTop = new PictureBoxEx();
             pidTop.Name = guid.ToString();
             pidTop.SizeMode = PictureBoxSizeMode.Zoom;
             pidTop.Location = new Point(0, 0);
@@ -60,12 +61,40 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             picsScale = scale;
             foreach (Control itm in this.Controls)
             {
-                var picb = itm as PictureBox;
+                var picb = itm as PictureBoxEx;
                 if (picb!=null && picb.Image != null)
                 {
                     picb.Width = Convert.ToInt32(picb.Image.Width * PicsScale);
                     picb.Height = Convert.ToInt32(picb.Image.Height * PicsScale);
                 }
+            }
+        }
+
+        private void mnChildSelectionAction_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            //MessageBox.Show(string.Format("{0}\n{1}",e.ClickedItem.Name
+            //    ,((ContextMenuStrip)e.ClickedItem.Owner).SourceControl.Name
+            //    ));
+            switch (e.ClickedItem.Name)
+            {
+                case "tsmiSelect":
+                    var ctrl = ((ContextMenuStrip)e.ClickedItem.Owner).SourceControl as PictureBoxEx;
+                    ctrl.IsSelected = true;
+                    ctrl.Refresh();
+
+                    break;
+                case "tsmiToTop":
+                    break;
+                case "tsmiToBottom":
+                    break;
+                case "tsmiUp":
+                    break;
+                case "tsmiDown":
+                    break;
+                case "tsmiDelete":
+                    break;
+                default:
+                    break;
             }
         }
     }
