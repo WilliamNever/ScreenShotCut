@@ -47,7 +47,9 @@
     <Compile Include="ControlExtendInfors\UsCtrlExInfors.cs" />
     <Compile Include="Functions\ConvertClass.cs" />
     <Compile Include="LogFile.cs" />
+    <Compile Include="Models\IControlExProperties.cs" />
     <Compile Include="Models\IFormSnap.cs" />
+    <Compile Include="Models\MoveControlInfor.cs" />
     <Compile Include="Models\SnapModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScSCutDomain.cs" />

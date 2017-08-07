@@ -159,6 +159,7 @@
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Silver;
             this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.splitContainer1_Panel1_MouseDown);
             // 
             // splitContainer1.Panel2
             // 
