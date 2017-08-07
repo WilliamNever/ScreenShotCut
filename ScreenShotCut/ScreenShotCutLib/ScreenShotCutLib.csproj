@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlExtendInfors\UsCtrlExInfors.cs" />
+    <Compile Include="Enums\EnLayerType.cs" />
     <Compile Include="Functions\ConvertClass.cs" />
     <Compile Include="LogFile.cs" />
     <Compile Include="Models\IControlExProperties.cs" />

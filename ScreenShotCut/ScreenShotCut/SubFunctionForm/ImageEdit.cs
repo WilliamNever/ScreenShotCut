@@ -1,6 +1,8 @@
 ﻿#define debug
 
+using ScreenImageEditUserControls.ImagesEditSection;
 using ScreenShotCut.BaseForms;
+using ScreenShotCutLib.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +21,10 @@ namespace ScreenShotCut.SubFunctionForm
         private BaseForm mainForm;
         private float scale;
 
+        private ToolsPannel tpnl;
+
+        private MoveControlInfor MvCtrlInfor { get; set; }
+
         private frmImageEdit()
         {
             scale = 1;
@@ -28,11 +34,15 @@ namespace ScreenShotCut.SubFunctionForm
 
         private void InitCtrols()
         {
+#if debug
             //UsCtrlBackGroundImage.SetScale(.5F);
             img = Properties.Resources.aat2017731_00001;
             UsCtrlBackGroundImage.AddBottomImage(img);
             UsCtrlBackGroundImage.AddTopImage(Properties.Resources.small2017731_00001);
             //UsCtrlBackGroundImage.SetScale(1F);
+#endif
+
+            InitToolsPannel();
         }
 
         public frmImageEdit(BaseForm mainForm, Image img)
@@ -49,6 +59,21 @@ namespace ScreenShotCut.SubFunctionForm
 #else
 
 #endif
+        }
+
+        private void InitToolsPannel()
+        {
+            tpnl = new ToolsPannel();
+            tpnl.Visible = false;
+            tpnl.Enabled = false;
+            tpnl.MouseDown += new MouseEventHandler(Tpnl_MouseDown);
+            tpnl.MouseMove += new MouseEventHandler(Tpnl_MouseMove);
+            tpnl.MouseUp += new MouseEventHandler(Tpnl_MouseUp);
+
+            tpnl.Location = new Point(0, this.mnMainTop.Height);
+
+            this.Controls.Add(tpnl);
+            this.Controls.SetChildIndex(tpnl, 0);
         }
 
         private void mnFile_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -73,15 +98,38 @@ namespace ScreenShotCut.SubFunctionForm
             switch (e.ClickedItem.Name)
             {
                 case "mniSelect":
-                    break;
                 case "mniText":
-                    break;
                 case "mniRectangle":
-                    break;
                 case "mniScale":
+                    tpnl.Visible = true;
+                    tpnl.Enabled = true;
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void Tpnl_MouseUp(object sender, MouseEventArgs e)
+        {
+            MvCtrlInfor = null;
+        }
+
+        private void Tpnl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MvCtrlInfor != null)
+            {
+                var ctrl = sender as Control;
+                ctrl.Location = new Point(ctrl.Location.X + e.X - MvCtrlInfor.Location.X
+                    , ctrl.Location.Y + e.Y - MvCtrlInfor.Location.Y);
+
+            }
+        }
+
+        private void Tpnl_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MvCtrlInfor = new MoveControlInfor { Location = e.Location };
             }
         }
 

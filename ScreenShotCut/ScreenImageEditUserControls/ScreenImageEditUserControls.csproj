@@ -45,6 +45,12 @@
     <Compile Include="FunctionsPart\PictureBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ImagesEditSection\ToolsPannel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImagesEditSection\ToolsPannel.Designer.cs">
+      <DependentUpon>ToolsPannel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImagesEditSection\UCtrlBackGround.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -54,6 +60,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ImagesEditSection\ToolsPannel.resx">
+      <DependentUpon>ToolsPannel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImagesEditSection\UCtrlBackGround.resx">
       <DependentUpon>UCtrlBackGround.cs</DependentUpon>
     </EmbeddedResource>
