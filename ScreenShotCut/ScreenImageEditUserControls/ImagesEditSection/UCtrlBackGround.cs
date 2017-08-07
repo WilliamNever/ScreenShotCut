@@ -16,6 +16,9 @@ namespace ScreenImageEditUserControls.ImagesEditSection
     public partial class UCtrlBackGround : UserControl
     {
         private float picsScale;
+        /// <summary>
+        /// All of the layer scale num
+        /// </summary>
         public float PicsScale { get { return picsScale; } }
         private MoveControlInfor MvCtrlInfor { get; set; }
         public UCtrlBackGround()
@@ -27,7 +30,6 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         private void UCtrlBackGround_Load(object sender, EventArgs e)
         {
-            //DoubleBuffered = true;
         }
 
         public void AddBottomImage(Image img)
@@ -42,9 +44,11 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             picBottom.Image = img;
             picBottom.Tag = new UsCtrlExInfors { ControlName = picBottom.Name, ControlText = "" };
             picBottom.ContextMenuStrip = mnChildSelectionAction;
+
             picBottom.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
             picBottom.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
             picBottom.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
+
             this.Controls.Add(picBottom);
         }
         public void AddTopImage(Image img)
@@ -59,6 +63,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             pidTop.Image = img;
             pidTop.Tag = new UsCtrlExInfors { ControlName = pidTop.Name, ControlText = "" };
             pidTop.ContextMenuStrip = mnChildSelectionAction;
+
             pidTop.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
             pidTop.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
             pidTop.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
@@ -84,7 +89,10 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         private void Conotrl_MouseDown(object sender, MouseEventArgs e)
         {
-            MvCtrlInfor = new MoveControlInfor { Location = e.Location };
+            if (e.Button == MouseButtons.Left)
+            {
+                MvCtrlInfor = new MoveControlInfor { Location = e.Location };
+            }
         }
 
         public void SetScale(float scale)

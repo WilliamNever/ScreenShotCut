@@ -28,6 +28,7 @@ namespace ScreenShotCut.SubFunctionForm
 
         private void InitCtrols()
         {
+            //UsCtrlBackGroundImage.SetScale(.5F);
             img = Properties.Resources.aat2017731_00001;
             UsCtrlBackGroundImage.AddBottomImage(img);
             UsCtrlBackGroundImage.AddTopImage(Properties.Resources.small2017731_00001);

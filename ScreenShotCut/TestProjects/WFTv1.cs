@@ -50,5 +50,21 @@ namespace TestProjects
         {
 
         }
+
+        private void WFTv1_MouseClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("1");
+        }
+
+        private void WFTv1_MouseDown(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("2");
+        }
+
+        private void panel3_MouseClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("3");
+            OnMouseClick(e);
+        }
     }
 }

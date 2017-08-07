@@ -78,6 +78,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(136, 102);
             this.panel3.TabIndex = 1;
+            this.panel3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseClick);
             // 
             // label2
             // 
@@ -207,6 +208,7 @@
             this.Controls.Add(this.button1);
             this.Name = "WFTv1";
             this.Text = "WFTv1";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.WFTv1_MouseClick);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

@@ -49,7 +49,7 @@
             this.tsmiDown,
             this.tsmiDelete});
             this.mnChildSelectionAction.Name = "mnChildSelectionAction";
-            this.mnChildSelectionAction.Size = new System.Drawing.Size(153, 158);
+            this.mnChildSelectionAction.Size = new System.Drawing.Size(131, 136);
             this.mnChildSelectionAction.Opening += new System.ComponentModel.CancelEventHandler(this.mnChildSelectionAction_Opening);
             this.mnChildSelectionAction.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnChildSelectionAction_ItemClicked);
             // 

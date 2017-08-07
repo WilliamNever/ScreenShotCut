@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScreenShotCutLib.Enums;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,10 +11,17 @@ namespace ScreenImageEditUserControls.FunctionsPart
 {
     public class PictureBoxEx : PictureBox, ScreenShotCutLib.Models.IControlExProperties
     {
+        private EnLayerType layerType;
+        public EnLayerType LayerType { get { return layerType; } }
         public bool IsSelectedControl { get; set; }
         public PictureBoxEx() : base()
         {
             IsSelectedControl = false;
+            layerType = EnLayerType.Picture;
+        }
+        public void ChangeLayerTypeTo(EnLayerType ltype)
+        {
+            layerType = ltype;
         }
         protected override void OnPaint(PaintEventArgs pe)
         {
