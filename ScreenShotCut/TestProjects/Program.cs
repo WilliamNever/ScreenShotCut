@@ -17,8 +17,8 @@ namespace TestProjects
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new WFTv1());
-            Application.Run(new frmImageEditTest(null,null));
+            Application.Run(new WFTv1());
+            //Application.Run(new frmImageEditTest(null, null));
         }
     }
 }

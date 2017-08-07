@@ -118,5 +118,10 @@ namespace ScreenShotCut.SubFunctionForm
         {
             pictureBox2.Select();
         }
+
+        private void splitContainer1_Panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

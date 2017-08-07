@@ -35,5 +35,36 @@ namespace TestProjects
             var tabSize = this.tabControl1.ItemSize;
             this.tabControl1.ItemSize = new Size(500, 40);
         }
+
+        private void label3_MouseDown(object sender, MouseEventArgs e)
+        {
+            label4.Text = e.X.ToString() + "/" + e.Y.ToString();
+        }
+
+        private void label3_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void label3_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void WFTv1_MouseClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("1");
+        }
+
+        private void WFTv1_MouseDown(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("2");
+        }
+
+        private void panel3_MouseClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("3");
+            OnMouseClick(e);
+        }
     }
 }
