@@ -10,22 +10,30 @@ using System.Windows.Forms;
 using ScreenShotCutLib.ControlExtendInfors;
 using ScreenImageEditUserControls.FunctionsPart;
 using ScreenShotCutLib.Models;
+using ScreenShotCutLib.DelegatesList;
+using ScreenImageEditUserControls.AssistantControls;
 
 namespace ScreenImageEditUserControls.ImagesEditSection
 {
     public partial class UCtrlBackGround : UserControl
     {
+        private CallBackFunc AddMessagesCallBack;
+        private string msgPnlKey;
+        private LblModelParams lmParams;
+
         private float picsScale;
         /// <summary>
         /// All of the layer scale num
         /// </summary>
         public float PicsScale { get { return picsScale; } }
         private MoveControlInfor MvCtrlInfor { get; set; }
+
         public UCtrlBackGround()
         {
             InitializeComponent();
             picsScale = 1F;
             MvCtrlInfor = null;
+            msgPnlKey = null;
         }
 
         private void UCtrlBackGround_Load(object sender, EventArgs e)
@@ -37,6 +45,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             var guid = Guid.NewGuid();
             var picBottom = new PictureBoxEx();
             picBottom.Name = guid.ToString();
+            picBottom.Parent = this;
             picBottom.SizeMode = PictureBoxSizeMode.Zoom;
             picBottom.Location = new Point(0, 0);
             picBottom.Width = Convert.ToInt32(img.Width * PicsScale);
@@ -56,6 +65,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             var guid = Guid.NewGuid();
             var pidTop = new PictureBoxEx();
             pidTop.Name = guid.ToString();
+            pidTop.Parent = this;
             pidTop.SizeMode = PictureBoxSizeMode.Zoom;
             pidTop.Location = new Point(0, 0);
             pidTop.Width = Convert.ToInt32(img.Width * PicsScale);
@@ -70,6 +80,43 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             
             this.Controls.Add(pidTop);
             this.Controls.SetChildIndex(pidTop, 0);
+        }
+
+        public void AddMessagesLabel(LblModelParams lmp, CallBackFunc CallBack)
+        {
+            //lmParams = lmp;
+            //AddMessagesCallBack = CallBack;
+            //MaskTransparent pnlAddMessage = new MaskTransparent();
+            //pnlAddMessage.Location = new Point(0, 0);
+            //pnlAddMessage.Size = new Size(this.HorizontalScroll.Maximum, this.VerticalScroll.Maximum);
+            ////pnlAddMessage.BackColor = Color.Gray;
+
+            //pnlAddMessage.Name = Guid.NewGuid().ToString().ToUpper();
+            //msgPnlKey = pnlAddMessage.Name;
+            //pnlAddMessage.MouseDown += new MouseEventHandler(PnlAddMessage_MouseDown);
+            //Controls.Add(pnlAddMessage);
+            //Controls.SetChildIndex(pnlAddMessage, 0);
+            ////pnlAddMessage.Parent = this;
+            //pnlAddMessage.Parent = Controls[2];
+            //pnlAddMessage.Dock = DockStyle.Fill;
+            //pnlAddMessage.Refresh();
+            //Controls.SetChildIndex(Controls[2], 0);
+            var len = Controls.Count;
+        }
+
+        private void PnlAddMessage_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                lmParams.Location = e.Location;
+                Controls.RemoveByKey(msgPnlKey);
+                AddMessagesCallBack();
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                Controls.RemoveByKey(msgPnlKey);
+                AddMessagesCallBack();
+            }
         }
 
         private void Conotrl_MouseUp(object sender, MouseEventArgs e)

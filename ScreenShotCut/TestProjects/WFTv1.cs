@@ -43,7 +43,6 @@ namespace TestProjects
 
         private void label3_MouseMove(object sender, MouseEventArgs e)
         {
-
         }
 
         private void label3_MouseUp(object sender, MouseEventArgs e)
@@ -65,6 +64,16 @@ namespace TestProjects
         {
             MessageBox.Show("3");
             OnMouseClick(e);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            panel4.Parent = Controls[5];
+        }
+
+        private void panel4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("");
         }
     }
 }

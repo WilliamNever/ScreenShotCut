@@ -1,7 +1,9 @@
 ﻿#define debug
 
+using ScreenImageEditUserControls.AssistantControls;
 using ScreenImageEditUserControls.ImagesEditSection;
 using ScreenShotCut.BaseForms;
+using ScreenShotCutLib.DelegatesList;
 using ScreenShotCutLib.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ScreenImageEditUserControls.ImagesEditSection.ToolsPannel;
 
 namespace ScreenShotCut.SubFunctionForm
 {
@@ -19,7 +22,6 @@ namespace ScreenShotCut.SubFunctionForm
     {
         private Image img;
         private BaseForm mainForm;
-        private float scale;
 
         private ToolsPannel tpnl;
 
@@ -27,7 +29,6 @@ namespace ScreenShotCut.SubFunctionForm
 
         private frmImageEdit()
         {
-            scale = 1;
             InitializeComponent();
             InitCtrols();
         }
@@ -64,16 +65,47 @@ namespace ScreenShotCut.SubFunctionForm
         private void InitToolsPannel()
         {
             tpnl = new ToolsPannel();
-            tpnl.Visible = false;
-            tpnl.Enabled = false;
+            tpnl.ToHidden();
             tpnl.MouseDown += new MouseEventHandler(Tpnl_MouseDown);
             tpnl.MouseMove += new MouseEventHandler(Tpnl_MouseMove);
             tpnl.MouseUp += new MouseEventHandler(Tpnl_MouseUp);
+
+            tpnl.WritePainter += new AddMessagesToPainter(ToAddMessagesOnPainter);
 
             tpnl.Location = new Point(0, this.mnMainTop.Height);
 
             this.Controls.Add(tpnl);
             this.Controls.SetChildIndex(tpnl, 0);
+        }
+
+        private void ToAddMessagesOnPainter(LblModelParams lmp, CallBackFunc CallBack)
+        {
+            //UsCtrlBackGroundImage.AddMessagesLabel(lmp, CallBack);
+            MaskTransparent pnlAddMessage = new MaskTransparent();
+            pnlAddMessage.Location = new Point(0, 0);
+            pnlAddMessage.Dock = DockStyle.Fill;
+            //pnlAddMessage.BackColor = Color.Teal;
+            pnlAddMessage.MouseDown += new MouseEventHandler(PnlAddMessage_MouseDown);
+            Controls.Add(pnlAddMessage);
+            Controls.SetChildIndex(pnlAddMessage, 0);
+            pnlAddMessage.Parent = this;
+            pnlAddMessage.Refresh();
+            UsCtrlBackGroundImage.AddMessagesLabel(lmp, CallBack);
+        }
+        private void PnlAddMessage_MouseDown(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("aaaa");
+            if (e.Button == MouseButtons.Left)
+            {
+                //lmParams.Location = e.Location;
+                //Controls.RemoveByKey(msgPnlKey);
+                //AddMessagesCallBack();
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                //Controls.RemoveByKey(msgPnlKey);
+                //AddMessagesCallBack();
+            }
         }
 
         private void mnFile_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -101,8 +133,7 @@ namespace ScreenShotCut.SubFunctionForm
                 case "mniText":
                 case "mniRectangle":
                 case "mniScale":
-                    tpnl.Visible = true;
-                    tpnl.Enabled = true;
+                    tpnl.ToShow();
                     break;
                 default:
                     break;
