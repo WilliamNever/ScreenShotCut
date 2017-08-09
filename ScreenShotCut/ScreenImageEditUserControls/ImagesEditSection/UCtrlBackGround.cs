@@ -20,6 +20,9 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         private CallBackFunc AddMessagesCallBack;
         private LblModelParams lmParams;
 
+        private PicContentMenu picMenu;
+        private LabelContxtMenu lblMenu;
+
         private float picsScale;
         /// <summary>
         /// All of the layer scale num
@@ -31,9 +34,27 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         public UCtrlBackGround()
         {
             InitializeComponent();
+            InitializeSelfDefineComponent();
+        }
+
+        private void InitializeSelfDefineComponent()
+        {
             picsScale = 1F;
             MvCtrlInfor = null;
             Switcher = new SwitchOnOff();
+            if (components == null)
+            {
+                components = new System.ComponentModel.Container();
+            }
+            picMenu = new FunctionsPart.PicContentMenu(this.components);
+            picMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mnChildSelectionAction_Opening);
+            picMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnChildSelectionAction_ItemClicked);
+            picMenu.Name = "SelfPicContextMenu";
+
+            lblMenu = new LabelContxtMenu(this.components);
+            lblMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mnChildSelectionAction_Opening);
+            lblMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnChildSelectionAction_ItemClicked);
+            lblMenu.Name = "SelfLabelContextMenu";
         }
 
         private void UCtrlBackGround_Load(object sender, EventArgs e)
@@ -52,7 +73,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             picBottom.Height = Convert.ToInt32(img.Height * PicsScale);
             picBottom.Image = img;
             picBottom.Tag = new UsCtrlExInfors { ControlName = picBottom.Name, ControlText = "" };
-            picBottom.ContextMenuStrip = mnChildSelectionAction;
+            picBottom.ContextMenuStrip = picMenu;// mnChildSelectionAction;
 
             picBottom.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
             picBottom.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
@@ -72,7 +93,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             pidTop.Height = Convert.ToInt32(img.Height * PicsScale);
             pidTop.Image = img;
             pidTop.Tag = new UsCtrlExInfors { ControlName = pidTop.Name, ControlText = "" };
-            pidTop.ContextMenuStrip = mnChildSelectionAction;
+            pidTop.ContextMenuStrip = picMenu;// mnChildSelectionAction;
 
             pidTop.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
             pidTop.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
@@ -215,7 +236,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             lblExMessages.ForeColor = lmParams.ForeColor;
             lblExMessages.BackColor = lmParams.BackColor;
             lblExMessages.Tag = new UsCtrlExInfors { ControlName = lblExMessages.Name, ControlText = "" };
-            lblExMessages.ContextMenuStrip = mnChildSelectionAction;
+            lblExMessages.ContextMenuStrip = lblMenu;// mnChildSelectionAction;
 
             lblExMessages.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
             lblExMessages.MouseMove += new MouseEventHandler(Conotrl_MouseMove);

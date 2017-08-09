@@ -49,7 +49,13 @@
     <Compile Include="AssistantControls\MaskTransparent.Designer.cs">
       <DependentUpon>MaskTransparent.cs</DependentUpon>
     </Compile>
+    <Compile Include="FunctionsPart\LabelContxtMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionsPart\LabelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionsPart\PicContentMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionsPart\PictureBoxEx.cs">
