@@ -1,6 +1,6 @@
-﻿namespace ScreenImageEditUserControls.ImagesEditSection
+﻿namespace ScreenImageEditUserControls.AssistantControls
 {
-    partial class UCtrlBackGround
+    partial class MaskTransparent
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,15 +30,14 @@
         {
             this.SuspendLayout();
             // 
-            // UCtrlBackGround
+            // MaskTransparent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.Name = "UCtrlBackGround";
-            this.Size = new System.Drawing.Size(446, 334);
-            this.Load += new System.EventHandler(this.UCtrlBackGround_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UCtrlBackGround_MouseDown);
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.DoubleBuffered = true;
+            this.Name = "MaskTransparent";
+            this.Size = new System.Drawing.Size(451, 291);
             this.ResumeLayout(false);
 
         }

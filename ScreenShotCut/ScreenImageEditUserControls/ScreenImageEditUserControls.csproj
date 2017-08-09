@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -42,6 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssistantControls\MaskTransparent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AssistantControls\MaskTransparent.Designer.cs">
+      <DependentUpon>MaskTransparent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FunctionsPart\LabelContxtMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionsPart\LabelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionsPart\PicContentMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionsPart\PictureBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -60,6 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AssistantControls\MaskTransparent.resx">
+      <DependentUpon>MaskTransparent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImagesEditSection\ToolsPannel.resx">
       <DependentUpon>ToolsPannel.cs</DependentUpon>
     </EmbeddedResource>
@@ -73,7 +92,9 @@
       <Name>ScreenShotCutLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
