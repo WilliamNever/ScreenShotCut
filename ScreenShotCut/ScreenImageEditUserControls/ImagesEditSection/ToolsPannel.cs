@@ -87,6 +87,8 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         public void BeginEditLabel(UsLabelExInfors usLabelExInfors)
         {
             UlblExInfors = usLabelExInfors;
+            this.tabTools.SelectTab("tpText");
+            ToShow();
         }
 
         private string GetDemoText(string lblTxt, string InputTxt)
@@ -150,11 +152,12 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         private void btnAddToShow_Click(object sender, EventArgs e)
         {
+
             LblModelParams lmp = new LblModelParams();
 
             float fsize;
             var font = cbbFontList.SelectedValue as FontFamily;
-            if (font != null)
+            if (font != null && !string.IsNullOrEmpty(txtInput.Text.Trim()))
             {
                 lmp.Messages = txtInput.Text;
                 if (!float.TryParse(txtFontSize.Text, out fsize))
@@ -166,14 +169,21 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                 lmp.BackColor = cbkBgColor.Checked ? btnBgColor.BackColor : Color.Transparent;
                 if (WritePainter != null)
                 {
+                    UsLabelExInfors uli = new UsLabelExInfors();
+                    uli.LblParams = lmp;
+                    uli.LayerType = ScreenShotCutLib.Enums.EnLayerType.Label;
                     ToHidden();
                     //*******************************************------------------*/
-                    WritePainter?.Invoke(lmp, CallBack);
+                    WritePainter?.Invoke(uli, CallBack);
                 }
             }
             else
             {
-                MessageBox.Show("The Selected Font does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                string message = "";
+                if (font == null) message += "The Selected Font does not exist.";
+                if (string.IsNullOrEmpty(txtInput.Text.Trim())) message += "No Information to show.";
+                if (string.IsNullOrEmpty(message)) message = "Errors!";
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Question);
             }
         }
 

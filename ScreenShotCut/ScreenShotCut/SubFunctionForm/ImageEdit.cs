@@ -99,7 +99,7 @@ namespace ScreenShotCut.SubFunctionForm
             this.Controls.SetChildIndex(tpnl, 0);
         }
 
-        private void ToAddMessagesOnPainter(LblModelParams lmp, CallBackFunc CallBack)
+        private void ToAddMessagesOnPainter(UsCtrlExInfors lmp, CallBackFunc CallBack)
         {
             UsCtrlBackGroundImage.ToAddMessagesLabel(lmp, CallBack);
         }

@@ -107,11 +107,18 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             this.Controls.SetChildIndex(pidTop, 0);
         }
 
-        public void ToAddMessagesLabel(LblModelParams lmp, CallBackFunc CallBack)
+        public void ToAddMessagesLabel(UsCtrlExInfors lmp, CallBackFunc CallBack)
         {
-            AddMessagesCallBack = CallBack;
-            lmParams = lmp;
-            Switcher.IsAddingMessageLabel = true;
+            if (lmp.LayerType == ScreenShotCutLib.Enums.EnLayerType.Label)
+            {
+                AddMessagesCallBack = CallBack;
+                lmParams = (lmp as UsLabelExInfors).LblParams;
+                Switcher.IsAddingMessageLabel = true;
+            }
+            else
+            {
+                CallBack?.Invoke();
+            }
         }
 
         private void Conotrl_MouseUp(object sender, MouseEventArgs e)

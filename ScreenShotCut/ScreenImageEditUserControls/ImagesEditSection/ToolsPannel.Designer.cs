@@ -111,7 +111,7 @@
             this.btnAddToShow.Name = "btnAddToShow";
             this.btnAddToShow.Size = new System.Drawing.Size(75, 23);
             this.btnAddToShow.TabIndex = 11;
-            this.btnAddToShow.Text = "Add";
+            this.btnAddToShow.Text = "OK";
             this.btnAddToShow.UseVisualStyleBackColor = true;
             this.btnAddToShow.Click += new System.EventHandler(this.btnAddToShow_Click);
             // 
