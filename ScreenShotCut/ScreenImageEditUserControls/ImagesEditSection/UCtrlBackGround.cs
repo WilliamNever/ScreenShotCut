@@ -31,6 +31,8 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         private MoveControlInfor MvCtrlInfor { get; set; }
         private SwitchOnOff Switcher;
 
+        public RunCommandHandler<UsCtrlExInfors> RunCommand;
+
         public UCtrlBackGround()
         {
             InitializeComponent();
@@ -55,6 +57,8 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             lblMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mnChildSelectionAction_Opening);
             lblMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnChildSelectionAction_ItemClicked);
             lblMenu.Name = "SelfLabelContextMenu";
+
+            RunCommand = null;
         }
 
         private void UCtrlBackGround_Load(object sender, EventArgs e)
@@ -171,6 +175,11 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                         ctrl.IsSelectedControl = !ctrl.IsSelectedControl;
                         ctrl.RefreshSelf();
                         break;
+                    case "tsmiEdit":
+                        ToEditLabelExOutSide("EditLabelEx",ctrl);
+                        break;
+                    case "tsmiConvertToPicture":
+                        break;
                     case "tsmiToTop":
                         this.Controls.SetChildIndex(slCtrl, 0);
                         break;
@@ -195,6 +204,30 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                         break;
                 }
             }
+        }
+
+        private void ToEditLabelExOutSide(string CommandName, IControlExProperties ctrl)
+        {
+            UsCtrlExInfors exInfor = null;
+            if (ctrl.GetLayerType() == ScreenShotCutLib.Enums.EnLayerType.Label)
+            {
+                var lblEx = ctrl as LabelEx;
+                UsLabelExInfors tmp = new UsLabelExInfors();
+
+                tmp.ControlName = ctrl.GetControlName();
+                tmp.LayerType = ctrl.GetLayerType();
+
+                LblModelParams lprms = new LblModelParams();
+                lprms.BackColor = lblEx.BackColor;
+                lprms.Font = lblEx.Font;
+                lprms.ForeColor = lblEx.ForeColor;
+                lprms.Location = lblEx.Location;
+                lprms.Messages = lblEx.Text;
+
+                tmp.LblParams = lprms;
+                exInfor = tmp;
+            }
+            RunCommand?.Invoke(CommandName, exInfor);
         }
 
         private void mnChildSelectionAction_Opening(object sender, CancelEventArgs e)

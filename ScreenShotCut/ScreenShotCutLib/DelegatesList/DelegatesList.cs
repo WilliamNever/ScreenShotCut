@@ -9,4 +9,5 @@ namespace ScreenShotCutLib.DelegatesList
 {
     public delegate void CallBackFunc();
     public delegate void AddMessagesToPainter(LblModelParams lmp, CallBackFunc CallBack);
+    public delegate void RunCommandHandler<T>(string command, T obj) where T : class;
 }

@@ -1,4 +1,5 @@
-﻿using ScreenShotCutLib.Enums;
+﻿using ScreenShotCutLib.ControlExtendInfors;
+using ScreenShotCutLib.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace ScreenShotCutLib.Models
         void RefreshSelf();
         string GetControlName();
         EnLayerType GetLayerType();
+        UsCtrlExInfors GetControlExInfors();
     }
 }

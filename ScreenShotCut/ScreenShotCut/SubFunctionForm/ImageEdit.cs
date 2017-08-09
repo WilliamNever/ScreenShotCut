@@ -3,6 +3,7 @@
 using ScreenImageEditUserControls.AssistantControls;
 using ScreenImageEditUserControls.ImagesEditSection;
 using ScreenShotCut.BaseForms;
+using ScreenShotCutLib.ControlExtendInfors;
 using ScreenShotCutLib.DelegatesList;
 using ScreenShotCutLib.Models;
 using System;
@@ -42,8 +43,28 @@ namespace ScreenShotCut.SubFunctionForm
             UsCtrlBackGroundImage.AddTopImage(Properties.Resources.small2017731_00001);
             //UsCtrlBackGroundImage.SetScale(1F);
 #endif
-
+            UsCtrlBackGroundImage.RunCommand += new RunCommandHandler<UsCtrlExInfors>(RunPaintCommand);
             InitToolsPannel();
+        }
+
+        private void RunPaintCommand(string command, UsCtrlExInfors obj)
+        {
+            switch (command)
+            {
+                case "EditLabelEx":
+                    if (obj.LayerType == ScreenShotCutLib.Enums.EnLayerType.Label)
+                    {
+                        EditLabelMessage(obj as UsLabelExInfors);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void EditLabelMessage(UsLabelExInfors usLabelExInfors)
+        {
+            tpnl.BeginEditLabel(usLabelExInfors);
         }
 
         public frmImageEdit(BaseForm mainForm, Image img)

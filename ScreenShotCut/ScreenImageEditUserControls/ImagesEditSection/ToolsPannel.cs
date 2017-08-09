@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ScreenShotCutLib.Models;
 using System.Configuration;
 using ScreenShotCutLib.DelegatesList;
+using ScreenShotCutLib.ControlExtendInfors;
 
 namespace ScreenImageEditUserControls.ImagesEditSection
 {
@@ -18,6 +19,10 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         private string DefaultFontName;
 
         public AddMessagesToPainter WritePainter;
+
+        private UsLabelExInfors UlblExInfors;
+
+        #region BaseFunctions
         public ToolsPannel()
         {
             InitializeComponent();
@@ -76,6 +81,12 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             {
                 cbbFontList.SelectedIndex = idx;
             }
+        }
+        #endregion
+
+        public void BeginEditLabel(UsLabelExInfors usLabelExInfors)
+        {
+            UlblExInfors = usLabelExInfors;
         }
 
         private string GetDemoText(string lblTxt, string InputTxt)

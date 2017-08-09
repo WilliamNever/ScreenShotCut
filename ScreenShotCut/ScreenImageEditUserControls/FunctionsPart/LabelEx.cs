@@ -1,4 +1,5 @@
-﻿using ScreenShotCutLib.Enums;
+﻿using ScreenShotCutLib.ControlExtendInfors;
+using ScreenShotCutLib.Enums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -53,6 +54,9 @@ namespace ScreenImageEditUserControls.FunctionsPart
         public EnLayerType GetLayerType()
         {
             return LayerType;
+        }
+        public UsCtrlExInfors GetControlExInfors() {
+            return this.Tag as UsCtrlExInfors;
         }
     }
 }
