@@ -9,20 +9,33 @@ using System.Windows.Forms;
 
 namespace ScreenImageEditUserControls.FunctionsPart
 {
-    public class PictureBoxEx : PictureBox, ScreenShotCutLib.Models.IControlExProperties
+    public class LabelEx : Label, ScreenShotCutLib.Models.IControlExProperties
     {
         private EnLayerType layerType;
         public EnLayerType LayerType { get { return layerType; } }
         public bool IsSelectedControl { get; set; }
-        public PictureBoxEx() : base()
+
+        public LabelEx() : base()
         {
             IsSelectedControl = false;
-            layerType = EnLayerType.Picture;
+            layerType = EnLayerType.Label;
         }
+
+        public string GetControlName()
+        {
+            return Name;
+        }
+
+        public void RefreshSelf()
+        {
+            Refresh();
+        }
+
         public void ChangeLayerTypeTo(EnLayerType ltype)
         {
             layerType = ltype;
         }
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -36,16 +49,6 @@ namespace ScreenImageEditUserControls.FunctionsPart
                     Color.Red, 2, ButtonBorderStyle.Dotted
                 );
             }
-        }
-
-        public void RefreshSelf()
-        {
-            this.Refresh();
-        }
-
-        public string GetControlName()
-        {
-            return this.Name; 
         }
         public EnLayerType GetLayerType()
         {

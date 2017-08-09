@@ -80,32 +80,7 @@ namespace ScreenShotCut.SubFunctionForm
 
         private void ToAddMessagesOnPainter(LblModelParams lmp, CallBackFunc CallBack)
         {
-            //UsCtrlBackGroundImage.AddMessagesLabel(lmp, CallBack);
-            MaskTransparent pnlAddMessage = new MaskTransparent();
-            pnlAddMessage.Location = new Point(0, 0);
-            pnlAddMessage.Dock = DockStyle.Fill;
-            //pnlAddMessage.BackColor = Color.Teal;
-            pnlAddMessage.MouseDown += new MouseEventHandler(PnlAddMessage_MouseDown);
-            Controls.Add(pnlAddMessage);
-            Controls.SetChildIndex(pnlAddMessage, 0);
-            pnlAddMessage.Parent = this;
-            pnlAddMessage.Refresh();
-            UsCtrlBackGroundImage.AddMessagesLabel(lmp, CallBack);
-        }
-        private void PnlAddMessage_MouseDown(object sender, MouseEventArgs e)
-        {
-            MessageBox.Show("aaaa");
-            if (e.Button == MouseButtons.Left)
-            {
-                //lmParams.Location = e.Location;
-                //Controls.RemoveByKey(msgPnlKey);
-                //AddMessagesCallBack();
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                //Controls.RemoveByKey(msgPnlKey);
-                //AddMessagesCallBack();
-            }
+            UsCtrlBackGroundImage.ToAddMessagesLabel(lmp, CallBack);
         }
 
         private void mnFile_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)

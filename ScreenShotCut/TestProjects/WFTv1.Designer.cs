@@ -41,8 +41,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -52,7 +52,6 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -171,14 +170,26 @@
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.Transparent;
+            this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel4.Controls.Add(this.label4);
             this.panel4.Location = new System.Drawing.Point(131, 155);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(149, 57);
             this.panel4.TabIndex = 6;
             this.panel4.Click += new System.EventHandler(this.panel4_Click);
+            this.panel4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseClick);
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(61, 155);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 25);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "label4";
             // 
             // label3
             // 
@@ -194,15 +205,6 @@
             this.label3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label3_MouseDown);
             this.label3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label3_MouseMove);
             this.label3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label3_MouseUp);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 24);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "label4";
             // 
             // pictureBox1
             // 
@@ -255,6 +257,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 407);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.button3);
@@ -277,8 +280,6 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

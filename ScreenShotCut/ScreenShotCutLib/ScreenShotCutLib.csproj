@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlExtendInfors\SwitchOnOff.cs" />
     <Compile Include="ControlExtendInfors\UsCtrlExInfors.cs" />
     <Compile Include="DelegatesList\DelegatesList.cs" />
     <Compile Include="Enums\EnLayerType.cs" />

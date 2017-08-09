@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScreenShotCutLib.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace ScreenShotCutLib.Models
         bool IsSelectedControl { get; set; }
         void RefreshSelf();
         string GetControlName();
+        EnLayerType GetLayerType();
     }
 }

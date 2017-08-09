@@ -56,37 +56,37 @@
             // tsmiSelect
             // 
             this.tsmiSelect.Name = "tsmiSelect";
-            this.tsmiSelect.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSelect.Size = new System.Drawing.Size(130, 22);
             this.tsmiSelect.Text = "Select";
             // 
             // tsmiToTop
             // 
             this.tsmiToTop.Name = "tsmiToTop";
-            this.tsmiToTop.Size = new System.Drawing.Size(152, 22);
+            this.tsmiToTop.Size = new System.Drawing.Size(130, 22);
             this.tsmiToTop.Text = "To Top";
             // 
             // tsmiToBottom
             // 
             this.tsmiToBottom.Name = "tsmiToBottom";
-            this.tsmiToBottom.Size = new System.Drawing.Size(152, 22);
+            this.tsmiToBottom.Size = new System.Drawing.Size(130, 22);
             this.tsmiToBottom.Text = "To Bottom";
             // 
             // tsmiUp
             // 
             this.tsmiUp.Name = "tsmiUp";
-            this.tsmiUp.Size = new System.Drawing.Size(152, 22);
+            this.tsmiUp.Size = new System.Drawing.Size(130, 22);
             this.tsmiUp.Text = "Up";
             // 
             // tsmiDown
             // 
             this.tsmiDown.Name = "tsmiDown";
-            this.tsmiDown.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDown.Size = new System.Drawing.Size(130, 22);
             this.tsmiDown.Text = "Down";
             // 
             // tsmiDelete
             // 
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(130, 22);
             this.tsmiDelete.Text = "Delete";
             // 
             // UCtrlBackGround
@@ -97,6 +97,7 @@
             this.Name = "UCtrlBackGround";
             this.Size = new System.Drawing.Size(446, 334);
             this.Load += new System.EventHandler(this.UCtrlBackGround_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UCtrlBackGround_MouseDown);
             this.mnChildSelectionAction.ResumeLayout(false);
             this.ResumeLayout(false);
 

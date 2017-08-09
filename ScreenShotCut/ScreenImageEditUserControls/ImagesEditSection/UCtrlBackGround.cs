@@ -18,7 +18,6 @@ namespace ScreenImageEditUserControls.ImagesEditSection
     public partial class UCtrlBackGround : UserControl
     {
         private CallBackFunc AddMessagesCallBack;
-        private string msgPnlKey;
         private LblModelParams lmParams;
 
         private float picsScale;
@@ -27,13 +26,14 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         /// </summary>
         public float PicsScale { get { return picsScale; } }
         private MoveControlInfor MvCtrlInfor { get; set; }
+        private SwitchOnOff Switcher;
 
         public UCtrlBackGround()
         {
             InitializeComponent();
             picsScale = 1F;
             MvCtrlInfor = null;
-            msgPnlKey = null;
+            Switcher = new SwitchOnOff();
         }
 
         private void UCtrlBackGround_Load(object sender, EventArgs e)
@@ -82,41 +82,11 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             this.Controls.SetChildIndex(pidTop, 0);
         }
 
-        public void AddMessagesLabel(LblModelParams lmp, CallBackFunc CallBack)
+        public void ToAddMessagesLabel(LblModelParams lmp, CallBackFunc CallBack)
         {
-            //lmParams = lmp;
-            //AddMessagesCallBack = CallBack;
-            //MaskTransparent pnlAddMessage = new MaskTransparent();
-            //pnlAddMessage.Location = new Point(0, 0);
-            //pnlAddMessage.Size = new Size(this.HorizontalScroll.Maximum, this.VerticalScroll.Maximum);
-            ////pnlAddMessage.BackColor = Color.Gray;
-
-            //pnlAddMessage.Name = Guid.NewGuid().ToString().ToUpper();
-            //msgPnlKey = pnlAddMessage.Name;
-            //pnlAddMessage.MouseDown += new MouseEventHandler(PnlAddMessage_MouseDown);
-            //Controls.Add(pnlAddMessage);
-            //Controls.SetChildIndex(pnlAddMessage, 0);
-            ////pnlAddMessage.Parent = this;
-            //pnlAddMessage.Parent = Controls[2];
-            //pnlAddMessage.Dock = DockStyle.Fill;
-            //pnlAddMessage.Refresh();
-            //Controls.SetChildIndex(Controls[2], 0);
-            var len = Controls.Count;
-        }
-
-        private void PnlAddMessage_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                lmParams.Location = e.Location;
-                Controls.RemoveByKey(msgPnlKey);
-                AddMessagesCallBack();
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                Controls.RemoveByKey(msgPnlKey);
-                AddMessagesCallBack();
-            }
+            AddMessagesCallBack = CallBack;
+            lmParams = lmp;
+            Switcher.IsAddingMessageLabel = true;
         }
 
         private void Conotrl_MouseUp(object sender, MouseEventArgs e)
@@ -136,9 +106,16 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         private void Conotrl_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (Switcher.IsAddingMessageLabel)
             {
-                MvCtrlInfor = new MoveControlInfor { Location = e.Location };
+                OnMouseDown(e);
+            }
+            else
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    MvCtrlInfor = new MoveControlInfor { Location = e.Location };
+                }
             }
         }
 
@@ -202,8 +179,50 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         private void mnChildSelectionAction_Opening(object sender, CancelEventArgs e)
         {
             var menu = (ContextMenuStrip)sender;
-            var ctrl = menu.SourceControl as PictureBoxEx;
+            var ctrl = menu.SourceControl as IControlExProperties;
             menu.Items["tsmiSelect"].Text = ctrl.IsSelectedControl ? "UnSelect" : "Select";
+        }
+
+        private void UCtrlBackGround_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (Switcher.IsAddingMessageLabel)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    lmParams.Location = e.Location;
+                    AddMessagesLable(lmParams);
+                    Switcher.IsAddingMessageLabel = false;
+                    AddMessagesCallBack?.Invoke();
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    Switcher.IsAddingMessageLabel = false;
+                    AddMessagesCallBack?.Invoke();
+                }
+            }
+        }
+
+        public void AddMessagesLable(LblModelParams lmParams)
+        {
+            var guid = Guid.NewGuid();
+            LabelEx lblExMessages = new LabelEx();
+            lblExMessages.Name = guid.ToString();
+            lblExMessages.AutoSize = true;
+            lblExMessages.Text = lmParams.Messages;
+            lblExMessages.Parent = this;
+            lblExMessages.Location = lmParams.Location;
+            lblExMessages.Font = lmParams.Font;
+            lblExMessages.ForeColor = lmParams.ForeColor;
+            lblExMessages.BackColor = lmParams.BackColor;
+            lblExMessages.Tag = new UsCtrlExInfors { ControlName = lblExMessages.Name, ControlText = "" };
+            lblExMessages.ContextMenuStrip = mnChildSelectionAction;
+
+            lblExMessages.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
+            lblExMessages.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
+            lblExMessages.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
+
+            this.Controls.Add(lblExMessages);
+            this.Controls.SetChildIndex(lblExMessages, 0);
         }
     }
 }

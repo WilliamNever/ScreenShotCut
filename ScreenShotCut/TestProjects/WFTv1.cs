@@ -47,7 +47,7 @@ namespace TestProjects
 
         private void label3_MouseUp(object sender, MouseEventArgs e)
         {
-
+            MessageBox.Show("11");
         }
 
         private void WFTv1_MouseClick(object sender, MouseEventArgs e)
@@ -73,7 +73,18 @@ namespace TestProjects
 
         private void panel4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("");
+            MessageBox.Show("23");
+        }
+
+        private void panel4_MouseClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("21");
+        }
+
+        private void panel4_MouseDown(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("22");
+            OnClick(e);
         }
     }
 }

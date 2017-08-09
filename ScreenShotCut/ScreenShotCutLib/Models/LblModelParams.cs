@@ -9,6 +9,7 @@ namespace ScreenShotCutLib.Models
 {
     public class LblModelParams
     {
+        public Color BackColor { get; set; }
         public Font Font { get; set; }
         public Color ForeColor { get; set; }
         public Point Location { get; set; }

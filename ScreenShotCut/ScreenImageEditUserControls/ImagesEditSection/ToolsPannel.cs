@@ -111,6 +111,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                 lblShowSample.Font = new Font(font, fsize, GetFontStype());
                 lblShowSample.Text = GetDemoText(lblShowSample.Text, txtInput.Text);
                 lblShowSample.ForeColor = btnPickColor.BackColor;
+                lblShowSample.BackColor = cbkBgColor.Checked ? btnBgColor.BackColor : Color.Transparent;
             }
             else
             {
@@ -151,6 +152,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                 }
                 lmp.Font = new Font(font, fsize, GetFontStype());
                 lmp.ForeColor = btnPickColor.BackColor;
+                lmp.BackColor = cbkBgColor.Checked ? btnBgColor.BackColor : Color.Transparent;
                 if (WritePainter != null)
                 {
                     ToHidden();
@@ -167,6 +169,14 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         private void CallBack()
         {
             ToShow();
+        }
+
+        private void btnBgColor_Click(object sender, EventArgs e)
+        {
+            if (clDlgPickColor.ShowDialog(this) == DialogResult.OK)
+            {
+                btnBgColor.BackColor = clDlgPickColor.Color;
+            }
         }
     }
 }
