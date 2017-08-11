@@ -31,6 +31,8 @@
             this.tabTools = new System.Windows.Forms.TabControl();
             this.tpSelect = new System.Windows.Forms.TabPage();
             this.tpText = new System.Windows.Forms.TabPage();
+            this.btnBgColor = new System.Windows.Forms.Button();
+            this.cbkBgColor = new System.Windows.Forms.CheckBox();
             this.btnAddToShow = new System.Windows.Forms.Button();
             this.cbkBold = new System.Windows.Forms.CheckBox();
             this.btnPickColor = new System.Windows.Forms.Button();
@@ -48,8 +50,6 @@
             this.lblClose = new System.Windows.Forms.Label();
             this.pnlTitle = new System.Windows.Forms.Panel();
             this.clDlgPickColor = new System.Windows.Forms.ColorDialog();
-            this.cbkBgColor = new System.Windows.Forms.CheckBox();
-            this.btnBgColor = new System.Windows.Forms.Button();
             this.tabTools.SuspendLayout();
             this.tpText.SuspendLayout();
             this.SuspendLayout();
@@ -75,7 +75,7 @@
             this.tpSelect.Location = new System.Drawing.Point(4, 22);
             this.tpSelect.Name = "tpSelect";
             this.tpSelect.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSelect.Size = new System.Drawing.Size(248, 259);
+            this.tpSelect.Size = new System.Drawing.Size(248, 319);
             this.tpSelect.TabIndex = 0;
             this.tpSelect.Text = "Select";
             this.tpSelect.UseVisualStyleBackColor = true;
@@ -104,6 +104,29 @@
             this.tpText.TabIndex = 1;
             this.tpText.Text = "Text";
             this.tpText.UseVisualStyleBackColor = true;
+            // 
+            // btnBgColor
+            // 
+            this.btnBgColor.BackColor = System.Drawing.SystemColors.Control;
+            this.btnBgColor.FlatAppearance.BorderSize = 0;
+            this.btnBgColor.Location = new System.Drawing.Point(93, 226);
+            this.btnBgColor.Name = "btnBgColor";
+            this.btnBgColor.Size = new System.Drawing.Size(77, 23);
+            this.btnBgColor.TabIndex = 13;
+            this.btnBgColor.Text = "Pick Color";
+            this.btnBgColor.UseVisualStyleBackColor = false;
+            this.btnBgColor.Click += new System.EventHandler(this.btnBgColor_Click);
+            // 
+            // cbkBgColor
+            // 
+            this.cbkBgColor.AutoSize = true;
+            this.cbkBgColor.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbkBgColor.Location = new System.Drawing.Point(6, 230);
+            this.cbkBgColor.Name = "cbkBgColor";
+            this.cbkBgColor.Size = new System.Drawing.Size(78, 17);
+            this.cbkBgColor.TabIndex = 12;
+            this.cbkBgColor.Text = "BackColor:";
+            this.cbkBgColor.UseVisualStyleBackColor = true;
             // 
             // btnAddToShow
             // 
@@ -240,7 +263,7 @@
             this.tpRectangle.Location = new System.Drawing.Point(4, 22);
             this.tpRectangle.Name = "tpRectangle";
             this.tpRectangle.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRectangle.Size = new System.Drawing.Size(248, 259);
+            this.tpRectangle.Size = new System.Drawing.Size(248, 319);
             this.tpRectangle.TabIndex = 2;
             this.tpRectangle.Text = "Rectangle";
             this.tpRectangle.UseVisualStyleBackColor = true;
@@ -251,7 +274,7 @@
             this.tpScale.Location = new System.Drawing.Point(4, 22);
             this.tpScale.Name = "tpScale";
             this.tpScale.Padding = new System.Windows.Forms.Padding(3);
-            this.tpScale.Size = new System.Drawing.Size(248, 259);
+            this.tpScale.Size = new System.Drawing.Size(248, 319);
             this.tpScale.TabIndex = 3;
             this.tpScale.Text = "Scale";
             this.tpScale.UseVisualStyleBackColor = true;
@@ -282,29 +305,6 @@
             // clDlgPickColor
             // 
             this.clDlgPickColor.AnyColor = true;
-            // 
-            // cbkBgColor
-            // 
-            this.cbkBgColor.AutoSize = true;
-            this.cbkBgColor.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbkBgColor.Location = new System.Drawing.Point(6, 230);
-            this.cbkBgColor.Name = "cbkBgColor";
-            this.cbkBgColor.Size = new System.Drawing.Size(78, 17);
-            this.cbkBgColor.TabIndex = 12;
-            this.cbkBgColor.Text = "BackColor:";
-            this.cbkBgColor.UseVisualStyleBackColor = true;
-            // 
-            // btnBgColor
-            // 
-            this.btnBgColor.BackColor = System.Drawing.Color.Black;
-            this.btnBgColor.FlatAppearance.BorderSize = 0;
-            this.btnBgColor.Location = new System.Drawing.Point(93, 226);
-            this.btnBgColor.Name = "btnBgColor";
-            this.btnBgColor.Size = new System.Drawing.Size(77, 23);
-            this.btnBgColor.TabIndex = 13;
-            this.btnBgColor.Text = "Pick Color";
-            this.btnBgColor.UseVisualStyleBackColor = false;
-            this.btnBgColor.Click += new System.EventHandler(this.btnBgColor_Click);
             // 
             // ToolsPannel
             // 

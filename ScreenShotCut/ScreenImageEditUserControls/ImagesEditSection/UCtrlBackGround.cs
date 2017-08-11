@@ -140,7 +140,16 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         {
             if (Switcher.IsAddingMessageLabel)
             {
-                OnMouseDown(e);
+                var slSender = sender as IControlExProperties;
+                int RX = e.X;
+                int RY = e.Y;
+                if (slSender != null)
+                {
+                    RX += slSender.ControlLocation.X;
+                    RY += slSender.ControlLocation.Y;
+                }
+                var ax = new MouseEventArgs(e.Button, e.Clicks, RX, RY, e.Delta);
+                OnMouseDown(ax);
             }
             else
             {

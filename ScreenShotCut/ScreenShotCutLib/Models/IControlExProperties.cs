@@ -2,6 +2,7 @@
 using ScreenShotCutLib.Enums;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,5 +16,6 @@ namespace ScreenShotCutLib.Models
         string GetControlName();
         EnLayerType GetLayerType();
         UsCtrlExInfors GetControlExInfors();
+        Point ControlLocation { get; set; }
     }
 }

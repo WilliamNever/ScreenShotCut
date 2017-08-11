@@ -29,6 +29,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             WritePainter = null;
         }
 
+        #region ShowHideUserControl
         public void ToHidden()
         {
             this.Enabled = false;
@@ -41,11 +42,14 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             this.Visible = true;
         }
 
+        #endregion
+
         private void lblClose_Click(object sender, EventArgs e)
         {
             ToHidden();
         }
 
+        #region PostEventToControl
         private void pnlTitle_MouseDown(object sender, MouseEventArgs e)
         {
             OnMouseDown(e);
@@ -60,6 +64,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         {
             OnMouseUp(e);
         }
+        #endregion
 
         private void ToolsPannel_Load(object sender, EventArgs e)
         {
@@ -82,14 +87,12 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                 cbbFontList.SelectedIndex = idx;
             }
         }
-        #endregion
 
-        public void BeginEditLabel(UsLabelExInfors usLabelExInfors)
+        private void CallBack()
         {
-            UlblExInfors = usLabelExInfors;
-            this.tabTools.SelectTab("tpText");
             ToShow();
         }
+        #endregion
 
         private string GetDemoText(string lblTxt, string InputTxt)
         {
@@ -107,7 +110,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             var font = cbbFontList.SelectedValue as FontFamily;
             if (font != null)
             {
-                lblShowSample.Font = new Font(font, lblShowSample.Font.Size);
+                btnDemo_Click(sender, e);
             }
         }
 
@@ -142,6 +145,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             return fs;
         }
 
+        #region color picker
         private void btnPickColor_Click(object sender, EventArgs e)
         {
             if (clDlgPickColor.ShowDialog(this) == DialogResult.OK)
@@ -149,6 +153,15 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                 btnPickColor.BackColor = clDlgPickColor.Color;
             }
         }
+
+        private void btnBgColor_Click(object sender, EventArgs e)
+        {
+            if (clDlgPickColor.ShowDialog(this) == DialogResult.OK)
+            {
+                btnBgColor.BackColor = clDlgPickColor.Color;
+            }
+        }
+        #endregion
 
         private void btnAddToShow_Click(object sender, EventArgs e)
         {
@@ -179,25 +192,40 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             }
             else
             {
+                #region Error Messages
                 string message = "";
                 if (font == null) message += "The Selected Font does not exist.";
                 if (string.IsNullOrEmpty(txtInput.Text.Trim())) message += "No Information to show.";
                 if (string.IsNullOrEmpty(message)) message = "Errors!";
                 MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                #endregion
             }
         }
 
-        private void CallBack()
+        public void BeginEditLabel(UsLabelExInfors usLabelExInfors)
         {
+            UlblExInfors = usLabelExInfors;
+            this.tabTools.SelectTab("tpText");
+            #region set value to the pannel
+
+            txtInput.Text = UlblExInfors.LblParams.Messages;
+            var slitm = cbbFontList.Items.OfType<FontListModel>().ToList()
+                .FindIndex(x => x.name.Equals(UlblExInfors.LblParams.Font.Name));
+            cbbFontList.SelectedIndex = slitm;
+            txtFontSize.Text = UlblExInfors.LblParams.Font.Size.ToString();
+
+            cbkBold.Checked = UlblExInfors.LblParams.Font.Bold;
+            cbkItalic.Checked = UlblExInfors.LblParams.Font.Italic;
+            cbkStrkeOut.Checked = UlblExInfors.LblParams.Font.Strikeout;
+            cbkUnderLine.Checked = UlblExInfors.LblParams.Font.Underline;
+
+            btnPickColor.BackColor = UlblExInfors.LblParams.ForeColor;
+            cbkBgColor.Checked = !(UlblExInfors.LblParams.BackColor == Color.Transparent);
+            btnBgColor.BackColor = cbkBgColor.Checked ? UlblExInfors.LblParams.BackColor : btnBgColor.BackColor;
+
+            #endregion
             ToShow();
-        }
-
-        private void btnBgColor_Click(object sender, EventArgs e)
-        {
-            if (clDlgPickColor.ShowDialog(this) == DialogResult.OK)
-            {
-                btnBgColor.BackColor = clDlgPickColor.Color;
-            }
+            btnDemo.PerformClick();
         }
     }
 }
