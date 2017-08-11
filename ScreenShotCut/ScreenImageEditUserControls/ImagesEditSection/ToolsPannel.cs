@@ -182,9 +182,21 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                 lmp.BackColor = cbkBgColor.Checked ? btnBgColor.BackColor : Color.Transparent;
                 if (WritePainter != null)
                 {
-                    UsLabelExInfors uli = new UsLabelExInfors();
-                    uli.LblParams = lmp;
+                    UsLabelExInfors uli;
+                    if (UlblExInfors != null)
+                    {
+                        uli = new UsLabelExInfors {
+                            ControlName = UlblExInfors.ControlName,
+                            ControlText = UlblExInfors.ControlText,
+                        };
+                    }
+                    else
+                    {
+                        uli = new UsLabelExInfors();
+                    }
                     uli.LayerType = ScreenShotCutLib.Enums.EnLayerType.Label;
+                    UlblExInfors = null;
+                    uli.LblParams = lmp;
                     ToHidden();
                     //*******************************************------------------*/
                     WritePainter?.Invoke(uli, CallBack);
