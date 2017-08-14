@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define debug_SaveTextImage
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -67,44 +69,36 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         public void AddBottomImage(Image img)
         {
-            var guid = Guid.NewGuid();
-            var picBottom = new PictureBoxEx();
-            picBottom.Name = guid.ToString();
-            picBottom.Parent = this;
-            picBottom.SizeMode = PictureBoxSizeMode.Zoom;
-            picBottom.Location = new Point(0, 0);
-            picBottom.Width = Convert.ToInt32(img.Width * PicsScale);
-            picBottom.Height = Convert.ToInt32(img.Height * PicsScale);
-            picBottom.Image = img;
-            picBottom.Tag = new UsCtrlExInfors { ControlName = picBottom.Name, ControlText = "" };
-            picBottom.ContextMenuStrip = picMenu;// mnChildSelectionAction;
-
-            picBottom.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
-            picBottom.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
-            picBottom.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
-
-            this.Controls.Add(picBottom);
+            AddImageLayer(img, -1, new Point(0, 0));
         }
         public void AddTopImage(Image img)
         {
+            AddImageLayer(img, 0, new Point(0, 0));
+        }
+
+        private void AddImageLayer(Image img, int LayerIndex, Point Location)
+        {
             var guid = Guid.NewGuid();
-            var pidTop = new PictureBoxEx();
-            pidTop.Name = guid.ToString();
-            pidTop.Parent = this;
-            pidTop.SizeMode = PictureBoxSizeMode.Zoom;
-            pidTop.Location = new Point(0, 0);
-            pidTop.Width = Convert.ToInt32(img.Width * PicsScale);
-            pidTop.Height = Convert.ToInt32(img.Height * PicsScale);
-            pidTop.Image = img;
-            pidTop.Tag = new UsCtrlExInfors { ControlName = pidTop.Name, ControlText = "" };
-            pidTop.ContextMenuStrip = picMenu;// mnChildSelectionAction;
+            var picEx = new PictureBoxEx();
+            picEx.Name = guid.ToString();
+            picEx.Parent = this;
+            picEx.SizeMode = PictureBoxSizeMode.Zoom;
+            picEx.Location = Location;
+            picEx.Width = Convert.ToInt32(img.Width * PicsScale);
+            picEx.Height = Convert.ToInt32(img.Height * PicsScale);
+            picEx.Image = img;
+            picEx.Tag = new UsCtrlExInfors { ControlName = picEx.Name, ControlText = "" };
+            picEx.ContextMenuStrip = picMenu;
 
-            pidTop.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
-            pidTop.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
-            pidTop.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
+            picEx.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
+            picEx.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
+            picEx.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
 
-            this.Controls.Add(pidTop);
-            this.Controls.SetChildIndex(pidTop, 0);
+            this.Controls.Add(picEx);
+            if (-1 < LayerIndex && LayerIndex < Controls.Count)
+            {
+                this.Controls.SetChildIndex(picEx, LayerIndex);
+            }
         }
 
         public void ToAddMessagesLabel(UsCtrlExInfors lmp, CallBackFunc CallBack)
@@ -200,9 +194,6 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         private void mnChildSelectionAction_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //MessageBox.Show(string.Format("{0}\n{1}",e.ClickedItem.Name
-            //    ,((ContextMenuStrip)e.ClickedItem.Owner).SourceControl.Name
-            //    ));
             var ctrl = ((ContextMenuStrip)sender).SourceControl as IControlExProperties;
             if (ctrl != null)
             {
@@ -219,6 +210,12 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                         ToEditLabelExOutSide("EditLabelEx", ctrl);
                         break;
                     case "tsmiConvertToPicture":
+                        Image desImage = ConvertToImage(ctrl);
+#if debug_SaveTextImage
+                        desImage.Save(@"D:\WQPersonal\baseHtml\ss.png", System.Drawing.Imaging.ImageFormat.Png);
+#endif
+                        AddImageLayer(desImage, Controls.IndexOfKey(ctrl.GetControlName()),ctrl.ControlLocation);
+                        Controls.RemoveByKey(ctrl.GetControlName());
                         break;
                     case "tsmiToTop":
                         this.Controls.SetChildIndex(slCtrl, 0);
@@ -244,6 +241,25 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                         break;
                 }
             }
+        }
+
+        private Image ConvertToImage(IControlExProperties ctrl)
+        {
+            Image rValue = null;
+            if (ctrl.GetLayerType() == ScreenShotCutLib.Enums.EnLayerType.Label)
+            {
+                var lblEx = ctrl as LabelEx;
+                var oriInfor = lblEx.GetControlExInfors() as UsLabelExInfors;
+                //取未被缩放时的大小生成图片，避免取大小值时出现闪烁，先进行隐藏
+                lblEx.Visible = false;
+                lblEx.Font = new Font(oriInfor.LblParams.Font.FontFamily, oriInfor.LblParams.Font.Size, oriInfor.LblParams.Font.Style);
+                rValue = new Bitmap(lblEx.Width, lblEx.Height);
+                Graphics g = Graphics.FromImage(rValue);
+                g.FillRectangle(new SolidBrush(lblEx.BackColor), 0, 0, rValue.Width, rValue.Height);
+                g.DrawString(lblEx.Text, lblEx.Font, new SolidBrush(lblEx.ForeColor), new Point(0, 0));
+                g.Flush();
+            }
+            return rValue;
         }
 
         private void ToEditLabelExOutSide(string CommandName, IControlExProperties ctrl)
