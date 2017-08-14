@@ -199,7 +199,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                     uli.LblParams = lmp;
                     ToHidden();
                     //*******************************************------------------*/
-                    WritePainter?.Invoke(uli, CallBack);
+                    WritePainter?.Invoke(uli, (string.IsNullOrEmpty(uli.ControlName?.Trim()) ? CallBack : default(CallBackFunc)));
                 }
             }
             else

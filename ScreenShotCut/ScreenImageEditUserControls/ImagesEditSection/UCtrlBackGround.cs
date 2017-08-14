@@ -18,7 +18,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
     public partial class UCtrlBackGround : UserControl
     {
         private CallBackFunc AddMessagesCallBack;
-        private LblModelParams lmParams;
+        private UsCtrlExInfors CtrlExInfor;
 
         private PicContentMenu picMenu;
         private LabelContxtMenu lblMenu;
@@ -102,7 +102,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             pidTop.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
             pidTop.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
             pidTop.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
-            
+
             this.Controls.Add(pidTop);
             this.Controls.SetChildIndex(pidTop, 0);
         }
@@ -111,9 +111,17 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         {
             if (lmp.LayerType == ScreenShotCutLib.Enums.EnLayerType.Label)
             {
-                AddMessagesCallBack = CallBack;
-                lmParams = (lmp as UsLabelExInfors).LblParams;
-                Switcher.IsAddingMessageLabel = true;
+                if (string.IsNullOrEmpty(lmp.ControlName?.Trim()))
+                {
+                    AddMessagesCallBack = CallBack;
+                    CtrlExInfor = lmp;
+                    Switcher.IsAddingOrEditingMessageLabel = true;
+                }
+                else
+                {
+                    AddMessagesLable(lmp as UsLabelExInfors);
+                    CallBack?.Invoke();
+                }
             }
             else
             {
@@ -138,7 +146,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         private void Conotrl_MouseDown(object sender, MouseEventArgs e)
         {
-            if (Switcher.IsAddingMessageLabel)
+            if (Switcher.IsAddingOrEditingMessageLabel)
             {
                 var slSender = sender as IControlExProperties;
                 int RX = e.X;
@@ -165,11 +173,27 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             picsScale = scale;
             foreach (Control itm in this.Controls)
             {
-                var picb = itm as PictureBoxEx;
-                if (picb!=null && picb.Image != null)
+                var ctrlEx = itm as IControlExProperties;
+                if (ctrlEx != null)
                 {
-                    picb.Width = Convert.ToInt32(picb.Image.Width * PicsScale);
-                    picb.Height = Convert.ToInt32(picb.Image.Height * PicsScale);
+                    switch (ctrlEx.GetLayerType())
+                    {
+                        case ScreenShotCutLib.Enums.EnLayerType.Picture:
+                            var picb = itm as PictureBoxEx;
+                            if (picb != null && picb.Image != null)
+                            {
+                                picb.Width = Convert.ToInt32(picb.Image.Width * PicsScale);
+                                picb.Height = Convert.ToInt32(picb.Image.Height * PicsScale);
+                            }
+                            break;
+                        case ScreenShotCutLib.Enums.EnLayerType.Label:
+                            var lblEx = itm as LabelEx;
+                            var fontOri = lblEx.Tag as UsLabelExInfors;
+                            lblEx.Font = new Font(fontOri.LblParams.Font.FontFamily, fontOri.LblParams.Font.Size * PicsScale, fontOri.LblParams.Font.Style);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -192,7 +216,7 @@ namespace ScreenImageEditUserControls.ImagesEditSection
                         ctrl.RefreshSelf();
                         break;
                     case "tsmiEdit":
-                        ToEditLabelExOutSide("EditLabelEx",ctrl);
+                        ToEditLabelExOutSide("EditLabelEx", ctrl);
                         break;
                     case "tsmiConvertToPicture":
                         break;
@@ -226,22 +250,9 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         {
             UsCtrlExInfors exInfor = null;
             if (ctrl.GetLayerType() == ScreenShotCutLib.Enums.EnLayerType.Label)
-            {
+            { 
                 var lblEx = ctrl as LabelEx;
-                UsLabelExInfors tmp = new UsLabelExInfors();
-
-                tmp.ControlName = ctrl.GetControlName();
-                tmp.LayerType = ctrl.GetLayerType();
-
-                LblModelParams lprms = new LblModelParams();
-                lprms.BackColor = lblEx.BackColor;
-                lprms.Font = lblEx.Font;
-                lprms.ForeColor = lblEx.ForeColor;
-                lprms.Location = lblEx.Location;
-                lprms.Messages = lblEx.Text;
-
-                tmp.LblParams = lprms;
-                exInfor = tmp;
+                exInfor = lblEx?.Tag as UsCtrlExInfors;
             }
             RunCommand?.Invoke(CommandName, exInfor);
         }
@@ -255,44 +266,68 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         private void UCtrlBackGround_MouseDown(object sender, MouseEventArgs e)
         {
-            if (Switcher.IsAddingMessageLabel)
+            if (Switcher.IsAddingOrEditingMessageLabel)
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    lmParams.Location = e.Location;
-                    AddMessagesLable(lmParams);
-                    Switcher.IsAddingMessageLabel = false;
-                    AddMessagesCallBack?.Invoke();
+                    if (CtrlExInfor.LayerType == ScreenShotCutLib.Enums.EnLayerType.Label)
+                    {
+                        var lblExInfor = CtrlExInfor as UsLabelExInfors;
+                        lblExInfor.LblParams.Location = e.Location;
+                        AddMessagesLable(lblExInfor);
+                        Switcher.IsAddingOrEditingMessageLabel = false;
+                        AddMessagesCallBack?.Invoke();
+                    }
                 }
                 else if (e.Button == MouseButtons.Right)
                 {
-                    Switcher.IsAddingMessageLabel = false;
+                    Switcher.IsAddingOrEditingMessageLabel = false;
                     AddMessagesCallBack?.Invoke();
                 }
             }
         }
 
-        public void AddMessagesLable(LblModelParams lmParams)
+        public void AddMessagesLable(UsLabelExInfors lblExInfor)
         {
-            var guid = Guid.NewGuid();
-            LabelEx lblExMessages = new LabelEx();
-            lblExMessages.Name = guid.ToString();
-            lblExMessages.AutoSize = true;
-            lblExMessages.Text = lmParams.Messages;
-            lblExMessages.Parent = this;
-            lblExMessages.Location = lmParams.Location;
-            lblExMessages.Font = lmParams.Font;
-            lblExMessages.ForeColor = lmParams.ForeColor;
-            lblExMessages.BackColor = lmParams.BackColor;
-            lblExMessages.Tag = new UsCtrlExInfors { ControlName = lblExMessages.Name, ControlText = "" };
-            lblExMessages.ContextMenuStrip = lblMenu;// mnChildSelectionAction;
+            var lmParams = lblExInfor.LblParams;
+            string ctrlKey = lblExInfor.ControlName?.Trim();
 
-            lblExMessages.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
-            lblExMessages.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
-            lblExMessages.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
+            if (string.IsNullOrEmpty(ctrlKey) ||!Controls.ContainsKey(ctrlKey))
+            {
+                var guid = Guid.NewGuid();
+                LabelEx lblExMessages = new LabelEx();
+                lblExMessages.Name = guid.ToString();
+                lblExMessages.AutoSize = true;
+                lblExMessages.UseMnemonic = false;
+                lblExMessages.Text = lmParams.Messages;
+                lblExMessages.Parent = this;
+                lblExMessages.Location = lmParams.Location;
+                lblExMessages.Font = new Font(lmParams.Font.FontFamily, lmParams.Font.Size * PicsScale, lmParams.Font.Style); //lmParams.Font;
+                lblExMessages.ForeColor = lmParams.ForeColor;
+                lblExMessages.BackColor = lmParams.BackColor;
+                lblExInfor.ControlName = lblExMessages.Name;
+                lblExMessages.Tag = lblExInfor;
+                lblExMessages.ContextMenuStrip = lblMenu;// mnChildSelectionAction;
 
-            this.Controls.Add(lblExMessages);
-            this.Controls.SetChildIndex(lblExMessages, 0);
+                lblExMessages.MouseDown += new MouseEventHandler(Conotrl_MouseDown);
+                lblExMessages.MouseMove += new MouseEventHandler(Conotrl_MouseMove);
+                lblExMessages.MouseUp += new MouseEventHandler(Conotrl_MouseUp);
+
+                this.Controls.Add(lblExMessages);
+                this.Controls.SetChildIndex(lblExMessages, 0);
+            }
+            else
+            {
+                var lblExMessages = Controls[ctrlKey] as LabelEx;
+                if (lblExMessages != null)
+                {
+                    lblExMessages.Text = lmParams.Messages;
+                    lblExMessages.Font = new Font(lmParams.Font.FontFamily, lmParams.Font.Size * PicsScale, lmParams.Font.Style);
+                    lblExMessages.ForeColor = lmParams.ForeColor;
+                    lblExMessages.BackColor = lmParams.BackColor;
+                    lblExMessages.Tag = lblExInfor;
+                }
+            }
         }
     }
 }
