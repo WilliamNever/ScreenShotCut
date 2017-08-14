@@ -8,11 +8,11 @@ namespace ScreenShotCutLib.ControlExtendInfors
 {
     public class SwitchOnOff
     {
-        public bool IsAddingMessageLabel { get; set; }
+        public bool IsAddingOrEditingMessageLabel { get; set; }
 
         public SwitchOnOff()
         {
-            IsAddingMessageLabel = false;
+            IsAddingOrEditingMessageLabel = false;
         }
     }
 }

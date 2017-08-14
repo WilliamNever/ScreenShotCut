@@ -15,6 +15,7 @@ namespace ScreenImageEditUserControls.FunctionsPart
         private EnLayerType layerType;
         public EnLayerType LayerType { get { return layerType; } }
         public bool IsSelectedControl { get; set; }
+        public Point ControlLocation { get { return Location; } set { Location = value; } }
         public PictureBoxEx() : base()
         {
             IsSelectedControl = false;
