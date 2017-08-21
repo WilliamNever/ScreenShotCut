@@ -14,7 +14,8 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 {
     public partial class UCtrlLayers : UserControl
     {
-        public RunCommandHandler<UsCtrlExInfors> RunCommand {
+        public RunCommandHandler<UsCtrlExInfors> RunCommand
+        {
             get
             {
                 return UsCtrlBackGroundImage.RunCommand;
@@ -35,9 +36,9 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             UsCtrlBackGroundImage.SetScale(vScale);
         }
 
-        public void AddBottomImage(Image img)
+        public void AddBottomImage(Image Img)
         {
-            UsCtrlBackGroundImage.AddBottomImage(img);
+            UsCtrlBackGroundImage.AddBottomImage(Img);
         }
 
         public void AddTopImage(Image Img)
@@ -57,7 +58,10 @@ namespace ScreenImageEditUserControls.ImagesEditSection
 
         public Bitmap GetCurrentBackLayerImage()
         {
-            return UsCtrlBackGroundImage.GetCurrentControlBitmat();
+            BackLayersVisible(false);
+            var bmp = UsCtrlBackGroundImage.GetCurrentControlBitmat();
+            BackLayersVisible(true);
+            return bmp;
         }
 
         private void UCtrlLayers_Load(object sender, EventArgs e)

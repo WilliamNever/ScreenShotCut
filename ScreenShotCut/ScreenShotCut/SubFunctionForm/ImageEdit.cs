@@ -112,10 +112,8 @@ namespace ScreenShotCut.SubFunctionForm
                 case "mniOpen":
                     break;
                 case "mniSave":
-                    UsCtrlLayers.BackLayersVisible(false);
                     var btmp = UsCtrlLayers.GetCurrentBackLayerImage();
                     btmp.Save("D:\\Test.png", System.Drawing.Imaging.ImageFormat.Png);
-                    UsCtrlLayers.BackLayersVisible(true);
                     break;
                 case "mniSaveAs":
                     break;
