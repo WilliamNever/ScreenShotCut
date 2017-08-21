@@ -32,8 +32,11 @@ namespace TestProjects
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var tabSize = this.tabControl1.ItemSize;
-            this.tabControl1.ItemSize = new Size(500, 40);
+            //var tabSize = this.tabControl1.ItemSize;
+            //this.tabControl1.ItemSize = new Size(500, 40);
+            Bitmap tmp = new Bitmap(panel1.Width, panel1.Height);
+            panel1.DrawToBitmap(tmp, new Rectangle(0, 0, panel1.Width, panel1.Height));
+            tmp.Save(@"d:\aaa.png",System.Drawing.Imaging.ImageFormat.Png);
         }
 
         private void label3_MouseDown(object sender, MouseEventArgs e)

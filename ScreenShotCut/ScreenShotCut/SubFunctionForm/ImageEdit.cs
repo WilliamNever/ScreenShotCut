@@ -112,6 +112,8 @@ namespace ScreenShotCut.SubFunctionForm
                 case "mniOpen":
                     break;
                 case "mniSave":
+                    //var btmp = UsCtrlBackGroundImage.GetCurrentControlBitmat();
+                    //btmp.Save("D:\\Test.png", System.Drawing.Imaging.ImageFormat.Png);
                     break;
                 case "mniSaveAs":
                     break;

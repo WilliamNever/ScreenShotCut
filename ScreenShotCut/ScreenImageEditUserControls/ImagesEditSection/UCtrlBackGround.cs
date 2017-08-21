@@ -272,6 +272,18 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             }
             RunCommand?.Invoke(CommandName, exInfor);
         }
+        /// <summary>
+        /// 控件截图功能
+        /// </summary>
+        /// <returns></returns>
+        public Bitmap GetCurrentControlBitmat()
+        {
+            Bitmap btmp = new Bitmap(this.Width, this.Height);
+            Controls.AddRange(Controls.OfType<Control>().Reverse().ToArray());
+            this.DrawToBitmap(btmp, new Rectangle(0, 0, btmp.Width,btmp.Height));
+            Controls.AddRange(Controls.OfType<Control>().Reverse().ToArray());
+            return btmp;
+        }
 
         private void mnChildSelectionAction_Opening(object sender, CancelEventArgs e)
         {
