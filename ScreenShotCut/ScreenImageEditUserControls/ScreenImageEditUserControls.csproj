@@ -73,6 +73,18 @@
     <Compile Include="ImagesEditSection\UCtrlBackGround.Designer.cs">
       <DependentUpon>UCtrlBackGround.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImagesEditSection\UCtrlFrontCover.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImagesEditSection\UCtrlFrontCover.Designer.cs">
+      <DependentUpon>UCtrlFrontCover.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImagesEditSection\UCtrlLayers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImagesEditSection\UCtrlLayers.Designer.cs">
+      <DependentUpon>UCtrlLayers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +96,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImagesEditSection\UCtrlBackGround.resx">
       <DependentUpon>UCtrlBackGround.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImagesEditSection\UCtrlFrontCover.resx">
+      <DependentUpon>UCtrlFrontCover.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImagesEditSection\UCtrlLayers.resx">
+      <DependentUpon>UCtrlLayers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
