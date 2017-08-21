@@ -71,7 +71,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel2);
-            this.panel1.Location = new System.Drawing.Point(12, 271);
+            this.panel1.Location = new System.Drawing.Point(-19, 283);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(138, 124);
             this.panel1.TabIndex = 1;

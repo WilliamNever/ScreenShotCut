@@ -37,13 +37,13 @@ namespace ScreenShotCut.SubFunctionForm
         private void InitCtrols()
         {
 #if debug
-            //UsCtrlBackGroundImage.SetScale(.5F);
+            //UsCtrlLayers.SetScale(.5F);
             img = Properties.Resources.aat2017731_00001;
-            UsCtrlBackGroundImage.AddBottomImage(img);
-            UsCtrlBackGroundImage.AddTopImage(Properties.Resources.small2017731_00001);
-            //UsCtrlBackGroundImage.SetScale(1F);
+            UsCtrlLayers.AddBottomImage(img);
+            UsCtrlLayers.AddTopImage(Properties.Resources.small2017731_00001);
+            //UsCtrlLayers.SetScale(1F);
 #endif
-            UsCtrlBackGroundImage.RunCommand += new RunCommandHandler<UsCtrlExInfors>(RunPaintCommand);
+            UsCtrlLayers.RunCommand += new RunCommandHandler<UsCtrlExInfors>(RunPaintCommand);
             InitToolsPannel();
         }
 
@@ -101,7 +101,7 @@ namespace ScreenShotCut.SubFunctionForm
 
         private void ToAddMessagesOnPainter(UsCtrlExInfors lmp, CallBackFunc CallBack)
         {
-            UsCtrlBackGroundImage.ToAddMessagesLabel(lmp, CallBack);
+            UsCtrlLayers.ToAddMessagesLabel(lmp, CallBack);
         }
 
         private void mnFile_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -112,8 +112,10 @@ namespace ScreenShotCut.SubFunctionForm
                 case "mniOpen":
                     break;
                 case "mniSave":
-                    //var btmp = UsCtrlBackGroundImage.GetCurrentControlBitmat();
-                    //btmp.Save("D:\\Test.png", System.Drawing.Imaging.ImageFormat.Png);
+                    UsCtrlLayers.BackLayersVisible(false);
+                    var btmp = UsCtrlLayers.GetCurrentBackLayerImage();
+                    btmp.Save("D:\\Test.png", System.Drawing.Imaging.ImageFormat.Png);
+                    UsCtrlLayers.BackLayersVisible(true);
                     break;
                 case "mniSaveAs":
                     break;

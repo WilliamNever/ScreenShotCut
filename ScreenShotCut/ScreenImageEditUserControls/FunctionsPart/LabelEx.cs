@@ -59,5 +59,6 @@ namespace ScreenImageEditUserControls.FunctionsPart
         public UsCtrlExInfors GetControlExInfors() {
             return this.Tag as UsCtrlExInfors;
         }
+        public float ObjectScale { get; set; }
     }
 }

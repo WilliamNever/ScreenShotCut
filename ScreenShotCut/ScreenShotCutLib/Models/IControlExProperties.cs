@@ -11,6 +11,7 @@ namespace ScreenShotCutLib.Models
 {
     public interface IControlExProperties
     {
+        float ObjectScale { get; set; }
         bool IsSelectedControl { get; set; }
         void RefreshSelf();
         string GetControlName();
