@@ -63,6 +63,36 @@ namespace ScreenImageEditUserControls.ImagesEditSection
             RunCommand = null;
         }
 
+        public Image GetMergedBmp()
+        {
+            var scl = PicsScale;
+            SetScale(1F);
+
+            Bitmap rValue = null;
+            int imgWith = 0, imgHeight = 0, lfX, lfY;
+            Point leftTopPoint;
+            if (Controls.Count > 0)
+            {
+                imgWith = Controls.OfType<Control>().Select(x => x.Width).Max();
+                imgHeight = Controls.OfType<Control>().Select(x => x.Height).Max();
+
+                lfX = Controls.OfType<Control>().Select(x => x.Location.X).Min();
+                lfY = Controls.OfType<Control>().Select(x => x.Location.Y).Min();
+
+                lfX = lfX < 0 ? 0 : lfX;
+                lfY = lfY < 0 ? 0 : lfY;
+                leftTopPoint = new Point(lfX, lfY);
+
+                rValue = new Bitmap(imgWith - lfX, imgHeight - lfY);
+
+                for (var i = Controls.Count - 1; i > -1; i--)
+                {
+                }
+            }
+            SetScale(scl);
+            return rValue;
+        }
+
         private void UCtrlBackGround_Load(object sender, EventArgs e)
         {
         }

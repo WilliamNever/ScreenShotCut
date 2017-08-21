@@ -16,5 +16,12 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         {
             InitializeComponent();
         }
+
+        public void SetBackGroundImage(Bitmap cuImage)
+        {
+            this.Visible = true;
+            this.BackgroundImage = cuImage;
+            this.BackgroundImageLayout = ImageLayout.Zoom;
+        }
     }
 }

@@ -172,10 +172,11 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel4.Location = new System.Drawing.Point(131, 155);
+            this.panel4.BackgroundImage = global::TestProjects.Properties.Resources.small2017731_00001;
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel4.Location = new System.Drawing.Point(253, 182);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(149, 57);
+            this.panel4.Size = new System.Drawing.Size(341, 187);
             this.panel4.TabIndex = 6;
             this.panel4.Click += new System.EventHandler(this.panel4_Click);
             this.panel4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseClick);
@@ -214,7 +215,7 @@
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Image = global::TestProjects.Properties.Resources.small2017731_00001;
-            this.pictureBox1.Location = new System.Drawing.Point(86, 172);
+            this.pictureBox1.Location = new System.Drawing.Point(144, 256);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

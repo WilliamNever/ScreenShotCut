@@ -68,5 +68,14 @@ namespace ScreenImageEditUserControls.ImagesEditSection
         {
             uCtrlFCover.Visible = false;
         }
+
+        public Image GetMergedBmp()
+        {
+            var cuImage = GetCurrentBackLayerImage();
+            uCtrlFCover.SetBackGroundImage(cuImage);
+            var rValue = UsCtrlBackGroundImage.GetMergedBmp();
+            uCtrlFCover.Visible = false;
+            return rValue;
+        }
     }
 }

@@ -112,8 +112,9 @@ namespace ScreenShotCut.SubFunctionForm
                 case "mniOpen":
                     break;
                 case "mniSave":
-                    var btmp = UsCtrlLayers.GetCurrentBackLayerImage();
-                    btmp.Save("D:\\Test.png", System.Drawing.Imaging.ImageFormat.Png);
+                    //var btmp = UsCtrlLayers.GetCurrentBackLayerImage();
+                    //btmp.Save("D:\\Test.png", System.Drawing.Imaging.ImageFormat.Png);
+                    var MergedBmp = UsCtrlLayers.GetMergedBmp();
                     break;
                 case "mniSaveAs":
                     break;
